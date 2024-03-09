@@ -1,0 +1,40 @@
+let forSort = [1, 15, 15, 39, 41, 23, 14, 66, 12, 34, 55, 67, 87, 99, 76, 55, -5555, 12, 34, 56, 67, -2, 2, 11, 35, 14, 63];
+
+function spaceSort(forSort) {
+    // Find the maximum absolute value
+    const maxNum = Math.max(...forSort.map(Math.abs));
+
+    // Create arrays for positive and negative values
+    const positiveBlank = new Array(maxNum + 1).fill(0);
+    const negativeBlank = new Array(maxNum + 1).fill(0);
+
+    // Result array to store the sorted values
+    const result = [];
+
+    // Populate the positive and negative arrays
+    for (const num of forSort) {
+        if (num >= 0) {
+            positiveBlank[num] = num;
+        } else {
+            negativeBlank[Math.abs(num)] = num;
+        }
+    }
+
+    // Merge the negative values into the result array
+    for (let i = negativeBlank.length - 1; i >= 0; i--) {
+        if (negativeBlank[i] !== 0) {
+            result.push(negativeBlank[i]);
+        }
+    }
+
+    // Merge the positive values into the result array
+    for (const num of positiveBlank) {
+        if (num !== 0) {
+            result.push(num);
+        }
+    }
+
+    return result;
+}
+
+console.log(spaceSort(forSort));

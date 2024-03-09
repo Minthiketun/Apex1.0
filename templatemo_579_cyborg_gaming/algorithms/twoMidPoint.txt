@@ -1,0 +1,33 @@
+function binarySearchTwoMidpoints(arr, target) {
+    let low = 0;
+    let high = arr.length - 1;
+
+    while (low <= high) {
+        const mid1 = Math.floor(low + (high - low) / 3);
+        const mid2 = Math.floor(high - (high - low) / 3);
+
+        const mid1Value = arr[mid1];
+        const mid2Value = arr[mid2];
+
+        if (mid1Value === target) {
+            return mid1; // Target found at the first midpoint
+        } else if (mid2Value === target) {
+            return mid2; // Target found at the second midpoint
+        } else if (target < mid1Value) {
+            high = mid1 - 1; // Search the left third
+        } else if (target > mid2Value) {
+            low = mid2 + 1; // Search the right third
+        } else {
+            low = mid1 + 1;
+            high = mid2 - 1; // Search the middle third
+        }
+    }
+
+    return -1; // Target not found
+}
+
+// Example usage:
+const sortedArray = [1,3,4,2,2,1];
+const targetValue = 2;
+
+console.log(binarySearchTwoMidpoints(sortedArray, targetValue));
